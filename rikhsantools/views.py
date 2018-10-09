@@ -88,9 +88,6 @@ def uploadFiles(request):
 		img_name = os.path.splitext(img.name)[0]
 		img_extension = os.path.splitext(img.name)[1]
 		user_folder = 'MEDIA/images'
-		# if not os.path.exists(user_folder):
-		# 	print('make')
-		# 	os.makedirs(user_folder)
 
 		img_save_path = ('%s/%s%s' % (user_folder, img_name, img_extension))
 		cpy=0
