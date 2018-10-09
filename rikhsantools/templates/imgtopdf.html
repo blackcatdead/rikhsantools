@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page %}
+{{page}}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="box box-default">
+	<div class="box-header with-border">
+		<h3 class="box-title">Image to PDF</h3>
+	</div>
+	<div class="box-body table-responsive">
+		<p>
+			Layanan online gratis ini memungkinkan Anda untuk mengkonversi gambar ke berkas PDF yang terpisah atau menggabungkannya dalam satu berkas PDF. Yang harus Anda lakukan adalah mengunggah sampai dengan <code>20 gambar</code>, menunggu sebentar dan unduh hasilnya.
+		</p>
+		<ol>
+		    <li>Klik <b>UNGGAH FILE</b> dan pilih berkas untuk dikonversi atau hanya dengan geser dan jatuhkan ke area unggah. Tunggu sampai proses selesai.</li>
+		    <li>Anda dapat mengunduh berkas yang telah dikonversi satu per satu atau cukup klik tombol <b>TERGABUNG</b> untuk mengunduh semua berkas yang telah digabungkan.</li>
+		</ol>
+
+		<button type="button" class="btn btn-primary js-upload-photos btn-block btn-flat">
+		  <span class="glyphicon glyphicon-cloud-upload"></span> Upload Files / Drop File Here
+		</button>
+
+		<!-- <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+		  <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+		  <h3>Drop File Here to Upload</h3>
+		</div> -->
+
+		<div id="modal-progress2" class="progress progress-sm active">
+			<div class="progress-bar progress-bar-primary progress-bar-striped" style="width: 0%">
+			  <span class="sr-only">20% Complete</span>
+			</div>
+			
+		</div>
+		<input id="fileupload" type="file" name="photo" multiple
+				       style="display: none;"
+				       data-url="{% url 'uploadfiles' %}"
+				       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+		<table id="gallery" class="table table-hover">
+            <thead>
+			    <tr>
+			      <th>File</th>
+			      <th>Action</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+
+			  </tbody>
+        </table>
+	</div>
+	<div class="box-footer">
+		<div class="row">
+			<div class="col-md-12">
+				<button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"> Combine</button>
+			</div>
+		</div>
+		
+	</div>
+
+	<!-- /.box-body -->
+</div>
+
+<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Uploading...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /.box -->
+{% endblock %}
+
+
+{% block foot %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.22.0/js/vendor/jquery.ui.widget.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.22.0/js/jquery.iframe-transport.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.22.0/js/jquery.fileupload.js"></script>
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script> -->
+	<script type="text/javascript">
+		$("#modal-progress2").hide();
+		$(function() {
+			$(".js-upload-photos").click(function () {
+				$("#fileupload").click();
+			});
+
+			$("#fileupload").fileupload({
+				dataType: 'json',
+				sequentialUploads: true,  /* 1. SEND THE FILES ONE BY ONE */
+				start: function (e) {  /* 2. WHEN THE UPLOADING PROCESS STARTS, SHOW THE MODAL */
+				  // $("#modal-progress").modal("show");
+				  $("#modal-progress2").show();
+				},
+				stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+				  // $("#modal-progress").modal("hide");
+				  $(".progress-bar span").text("0");
+				  $("#modal-progress2").hide();
+
+				},
+				progressall: function (e, data) {  /* 4. UPDATE THE PROGRESS BAR */
+				  var progress = parseInt(data.loaded / data.total * 100, 10);
+				  var strProgress = progress + "%";
+				  $(".progress-bar").css({"width": strProgress});
+				  $(".progress-bar span").text(strProgress);
+				},
+				done: function (e, data) {
+				  if (data.result.is_valid) {
+				    $("#gallery tbody").prepend(
+				      '<tr><td class="imgs">' + data.result.name + '</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?imgname='+data.result.name+'"><span class="fa fa-download"></span></a></td></tr>'
+				    )
+				  }
+				}
+
+			});
+
+		});
+
+		$(document).ready(function(){
+			
+		  //   $('#combine').click(function () {
+		  //   	var a = [];
+				// $(".imgs").each(function( index ) {
+				//   console.log($(this).text());
+				//   a.push($(this).text());
+				// });
+		  //       $.post("{% url 'combinetopdf' %}", {
+		  //       	images: a
+		  //       } );
+		  //   }); // missing end of statement.
+
+		    $("#combine").click(function () {
+			    x = $('<form action="{% url "combinetopdf" %}" method="POST"/>')
+
+			    $(".imgs").each(function( index ) {
+				  x.append($('<input type="hidden" name="images[]" value="' + $(this).text() + '">'))
+				});
+			    x.appendTo($(document.body)) //it has to be added somewhere into the <body>
+			    x.submit();
+			});
+		});
+	</script>
+{% endblock %}
