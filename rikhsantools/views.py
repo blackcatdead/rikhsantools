@@ -134,7 +134,7 @@ def combinetopdf(request):
 	imglist=[]
 
 	for p in photos:
-		print(p.photo.path)
+		# print(p.photo.path)
 		imglist.append(p.photo.path)
 	# for x in request.POST.getlist('ids[]'):
 	# 	imglist.append('media/images/'+x)
