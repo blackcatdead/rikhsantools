@@ -18,6 +18,7 @@ from django.urls import path, include
 from rikhsantools import views as v
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
 
 urlpatterns = [
 	path('imgtopdf/', v.index, name='imgtopdf'),
