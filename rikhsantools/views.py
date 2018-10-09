@@ -87,17 +87,20 @@ def uploadFiles(request):
 		img = request.FILES['photo']
 		img_name = os.path.splitext(img.name)[0]
 		img_extension = os.path.splitext(img.name)[1]
-		user_folder = 'MEDIA/images'
+		user_folder = settings.MEDIA_ROOT+'/images'
 
-		img_save_path = ('%s/%s%s' % (user_folder, img_name, img_extension))
+		filename= ('%s%s' % (img_name, img_extension))
+		img_save_path = ('%s/%s' % (user_folder, filename))
 		cpy=0
 		while os.path.exists(img_save_path):
 			cpy=cpy+1
-			img_save_path = ('%s/%s%s' % (user_folder, img_name+"_"+str(cpy), img_extension))
+			filename = ('%s%s' % (img_name+"_"+str(cpy), img_extension))
+			img_save_path = ('%s/%s' % (user_folder, filename))
+
 		with open(img_save_path, 'wb+') as f:
 			for chunk in img.chunks():
 				 f.write(chunk)
-		data = {'is_valid': True, 'name': str(img_name+"_"+str(cpy)+img_extension),}
+		data = {'is_valid': True, 'name': filename,}
 	else:
 	    data = {'is_valid': False}
 	return JsonResponse(data)
