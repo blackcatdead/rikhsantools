@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 	path('imgtopdf/', v.index, name='imgtopdf'),
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     path('proc/upload/files', v.uploadFiles, name='uploadfiles'),
     path('proc/mergepdf', v.mergepdf, name='mergepdf'),
