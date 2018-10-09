@@ -75,7 +75,7 @@ def index(request):
 def imgtoPDF(imglist):
 	pdf_bytes = img2pdf.convert(imglist)
 	location='pdf/tesstt.pdf'
-	file = open("MEDIA/"+location,"w")
+	file = open("media/"+location,"w")
 	file.write(pdf_bytes)
 	file.close()
 	
@@ -109,7 +109,7 @@ def singleimgtopdf(request):
 	imglist=[]
 	img_name = os.path.splitext(request.GET['imgname'])[0]
 	img_extension = os.path.splitext(request.GET['imgname'])[1]
-	imglist.append('MEDIA/images/'+request.GET['imgname'])
+	imglist.append('media/images/'+request.GET['imgname'])
 	pdf_bytes = img2pdf.convert(imglist)
 	response = HttpResponse(pdf_bytes, content_type="application/pdf")
 	response['Content-Disposition'] = 'attachment; filename='+img_name+'.pdf'
@@ -120,8 +120,8 @@ def combinetopdf(request):
 	print(request.POST)
 	imglist=[]
 	for x in request.POST.getlist('images[]'):
-		imglist.append('MEDIA/images/'+x)
-		print('MEDIA/images/'+x)
+		imglist.append('media/images/'+x)
+		print('media/images/'+x)
 	pdf_bytes = img2pdf.convert(imglist)
 	response = HttpResponse(pdf_bytes, content_type="application/pdf")
 	response['Content-Disposition'] = 'attachment; filename=combined.pdf'
