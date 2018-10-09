@@ -107,7 +107,7 @@ def imgtoPDF(imglist):
 
 @csrf_exempt
 def uploadFiles(request):
-	form = FileForm(request.FILES)
+	form = FileForm(request.FILES,request.POST)
 	if form.is_valid():
 		f = form.save()
 		img = request.FILES['photo']
