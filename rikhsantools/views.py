@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
-# from rikhsantools.forms import FileForm, UploadFileForm
+from rikhsantools.forms import FileForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from rikhsantools.models import Visitor, Pdf
+from rikhsantools.models import Photo
 from fpdf import FPDF
 from rikhsantools import settings
 import img2pdf
@@ -80,48 +80,65 @@ def imgtoPDF(imglist):
 	file.close()
 	
 
+# @csrf_exempt
+# def uploadFiles(request):
+# 	# form = UploadFileForm(request.POST, request.FILES)
+# 	if request.FILES:
+# 		img = request.FILES['photo']
+# 		img_name = os.path.splitext(img.name)[0]
+# 		img_extension = os.path.splitext(img.name)[1]
+# 		user_folder = settings.MEDIA_ROOT+'/images'
+
+# 		filename= ('%s%s' % (img_name, img_extension))
+# 		img_save_path = ('%s/%s' % (user_folder, filename))
+# 		cpy=0
+# 		while os.path.exists(img_save_path):
+# 			cpy=cpy+1
+# 			filename = ('%s%s' % (img_name+"_"+str(cpy), img_extension))
+# 			img_save_path = ('%s/%s' % (user_folder, filename))
+
+# 		with open(img_save_path, 'wb+') as f:
+# 			for chunk in img.chunks():
+# 				 f.write(chunk)
+# 		data = {'is_valid': True, 'name': filename,}
+# 	else:
+# 	    data = {'is_valid': False}
+# 	return JsonResponse(data)
+
 @csrf_exempt
 def uploadFiles(request):
-	# form = UploadFileForm(request.POST, request.FILES)
-	if request.FILES:
+	form = FileForm(request.POST, request.FILES)
+	if form.is_valid():
+		f = form.save()
 		img = request.FILES['photo']
-		img_name = os.path.splitext(img.name)[0]
-		img_extension = os.path.splitext(img.name)[1]
-		user_folder = settings.MEDIA_ROOT+'/images'
-
-		filename= ('%s%s' % (img_name, img_extension))
-		img_save_path = ('%s/%s' % (user_folder, filename))
-		cpy=0
-		while os.path.exists(img_save_path):
-			cpy=cpy+1
-			filename = ('%s%s' % (img_name+"_"+str(cpy), img_extension))
-			img_save_path = ('%s/%s' % (user_folder, filename))
-
-		with open(img_save_path, 'wb+') as f:
-			for chunk in img.chunks():
-				 f.write(chunk)
-		data = {'is_valid': True, 'name': filename,}
+		f.filename= os.path.splitext(img.name)[0]
+		f.save()
+		data = {'is_valid': True, 'name': f.filename, 'url': f.photo.url, 'id': f.id_photo}
 	else:
 	    data = {'is_valid': False}
 	return JsonResponse(data)
 
 def singleimgtopdf(request):
+	photo = get_object_or_404(Photo, id_photo=request.GET['id'])
 	imglist=[]
-	img_name = os.path.splitext(request.GET['imgname'])[0]
-	img_extension = os.path.splitext(request.GET['imgname'])[1]
-	imglist.append('media/images/'+request.GET['imgname'])
+	imglist.append(photo.photo.path)
 	pdf_bytes = img2pdf.convert(imglist)
 	response = HttpResponse(pdf_bytes, content_type="application/pdf")
-	response['Content-Disposition'] = 'attachment; filename='+img_name+'.pdf'
+	response['Content-Disposition'] = 'attachment; filename='+photo.filename+'.pdf'
 	return response
 
 @csrf_exempt
 def combinetopdf(request):
 	print(request.POST)
+	photos = Photo.objects.filter(id_photo__in=request.POST.getlist('ids[]'))
 	imglist=[]
-	for x in request.POST.getlist('images[]'):
-		imglist.append('media/images/'+x)
-		print('media/images/'+x)
+
+	for p in photos:
+		print(p.photo.path)
+		imglist.append(p.photo.path)
+	# for x in request.POST.getlist('ids[]'):
+	# 	imglist.append('media/images/'+x)
+	# 	print('media/images/'+x)
 	pdf_bytes = img2pdf.convert(imglist)
 	response = HttpResponse(pdf_bytes, content_type="application/pdf")
 	response['Content-Disposition'] = 'attachment; filename=combined.pdf'

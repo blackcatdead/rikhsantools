@@ -43,8 +43,9 @@
 		<table id="gallery" class="table table-hover">
             <thead>
 			    <tr>
-			      <th>File</th>
-			      <th>Action</th>
+			    	<th>#</th>
+			      	<th>File</th>
+			      	<th>Action</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -117,7 +118,7 @@
 				done: function (e, data) {
 				  if (data.result.is_valid) {
 				    $("#gallery tbody").prepend(
-				      '<tr><td class="imgs">' + data.result.name + '</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?imgname='+data.result.name+'"><span class="fa fa-download"></span></a></td></tr>'
+				      '<tr><td class="imgs">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'"><span class="fa fa-download"></span></a></td></tr>'
 				    )
 				  }
 				}
@@ -143,7 +144,7 @@
 			    x = $('<form action="{% url "combinetopdf" %}" method="POST"/>')
 
 			    $(".imgs").each(function( index ) {
-				  x.append($('<input type="hidden" name="images[]" value="' + $(this).text() + '">'))
+				  x.append($('<input type="hidden" name="ids[]" value="' + $(this).text() + '">'))
 				});
 			    x.appendTo($(document.body)) //it has to be added somewhere into the <body>
 			    x.submit();

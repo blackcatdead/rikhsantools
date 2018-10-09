@@ -4,12 +4,12 @@ from django import forms
 from django.forms import ModelForm, Textarea, TextInput, NumberInput, EmailInput, Select, PasswordInput, FileInput, ImageField, ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-# from rikhsantools.models import Photo
+from rikhsantools.models import Photo
 
-# class FileForm(forms.ModelForm):
-#     class Meta:
-#         model = Photo
-#         fields = ('photo', )
+class FileForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('photo', )
 
 # class UploadFileForm(forms.Form):
 #     title = forms.CharField(max_length=50)
