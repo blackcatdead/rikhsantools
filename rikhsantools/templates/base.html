@@ -1,4 +1,8 @@
 {% load static %}
+{% load i18n %}
+
+{% get_available_languages as languages %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,25 +51,17 @@
 <!--           	<li class=""><a href=""><span class="hidden-xs">Penyelesaian: </span>{{ dataresponden.progress }}% </a></li>
           	<li class=""><a href=""><span class="hidden-xs">Kesempatan: </span>{{ dataresponden.kesempatan }} </a></li> -->
             <!-- User Account Menu -->
-            <!-- <li class="dropdown tasks-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Indonesia <span class="caret"></span></a>
+            <li class="dropdown tasks-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{ LANGUAGE_CODE }} <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a id="en" href="/en/#">English</a></li>
-                <li><a id="zh" href="/zh/#">中文</a></li>
-                <li><a id="es" href="/es/#">Español</a></li>
-                <li><a id="pt" href="/pt/#">Português</a></li>
-                <li><a id="ru" href="/ru/#">Русский</a></li>
-                <li><a id="fr" href="/fr/#">Français</a></li>
-                <li><a id="de" href="/de/#">Deutsch</a></li>
-                <li><a id="ja" href="/ja/#">日本語</a></li>
-                <li><a id="nl" href="/nl/#">Nederlands</a></li>
-                <li><a id="pl" href="/pl/#">Polski</a></li>
-                <li><a id="tr" href="/tr/#">Türkçe</a></li>
-                <li><a id="ko" href="/ko/#">한국어</a></li>
-                <li><a id="it" href="/it/#">Italiano</a></li>
-                <li><a id="vi" href="/vi/#">Tiếng việt</a></li>
+                {% for lang_code, lang_name in languages %}
+                    {% language lang_code %}
+                      <li><a id="{{ lang_code }}" href="{% url 'imgtopdf' %}">{{ lang_name }} ({{ lang_code }})</a></li>
+                    {% endlanguage %}
+                {% endfor %}
+                
               </ul>
-            </li> -->
+            </li>
           </ul>
         </div>
         <!-- /.navbar-custom-menu -->

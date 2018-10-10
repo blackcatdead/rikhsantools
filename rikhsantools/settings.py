@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'rikhsantools.urls'
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -120,6 +121,31 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('id', 'Indonesian'),
+    ('ja', 'Japanese'),
+    ('de', 'German'),
+    ('cs', 'Czech'),
+    ('ar', 'Arabic'),
+    ('es', 'Spanish'),
+    ('fr', 'French'),
+    ('it', 'Italian'),
+    ('ko', 'Korean'),
+    ('nl', 'Dutch'),
+    ('pl', 'Polish'),
+    ('ru', 'Russian'),
+    ('sv', 'Swedish'),
+    ('th', 'Thai'),
+    ('tr', 'Turkish'),
+    ('vi', 'Vietnamese'),
+    ('zh-hans', 'Simplified Chinese'),
+    ('zh-hant', 'Traditional Chinese'),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

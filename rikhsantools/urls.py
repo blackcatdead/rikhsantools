@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-	path('imgtopdf/', v.index, name='imgtopdf'),
+	# path('imgtopdf/', v.index, name='imgtopdf'),
     path('admin/', admin.site.urls),
 
     path('proc/upload/files', v.uploadFiles, name='uploadfiles'),
@@ -30,6 +30,13 @@ urlpatterns = [
     path('proc/combinetopdf', v.combinetopdf, name='combinetopdf'),
 
 ]
+
+from django.conf.urls.i18n import i18n_patterns
+urlpatterns += i18n_patterns( # < here
+    # path('', include('base.urls'))
+    path('', include('rikhsantools.urlslang')),
+    # prefix_default_language=False,
+) 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

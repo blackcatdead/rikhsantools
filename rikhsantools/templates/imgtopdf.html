@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% block page %}
 {{page}}
 {% endblock %}
@@ -22,7 +23,7 @@
 		</ol>
 
 		<button type="button" class="btn btn-primary js-upload-photos btn-block btn-flat">
-		  <span class="glyphicon glyphicon-cloud-upload"></span> Upload Files / Drop File Here
+		  <span class="glyphicon glyphicon-cloud-upload"></span> {% trans "Upload Files / Drop File Here" %}
 		</button>
 
 		<!-- <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
@@ -42,11 +43,11 @@
 				       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 		<table id="gallery" class="table table-hover">
             <thead>
-			    <tr>
-			    	<th>#</th>
+			    <!-- <tr>
+			    	<th class="hidden">#</th>
 			      	<th>File</th>
 			      	<th>Action</th>
-			    </tr>
+			    </tr> -->
 			  </thead>
 			  <tbody>
 
@@ -56,7 +57,7 @@
 	<div class="box-footer">
 		<div class="row">
 			<div class="col-md-12">
-				<button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"> Combine</button>
+				<button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"></span> {% trans "Combine" %}</button>
 			</div>
 		</div>
 		
@@ -118,7 +119,7 @@
 				done: function (e, data) {
 				  if (data.result.is_valid) {
 				    $("#gallery tbody").prepend(
-				      '<tr><td class="imgs">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'"><span class="fa fa-download"></span></a></td></tr>'
+				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'"><span class="fa fa-download"></span></a></td></tr>'
 				    )
 				  }
 				}
