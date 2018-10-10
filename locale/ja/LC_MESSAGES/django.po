@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 09:34+0700\n"
+"POT-Creation-Date: 2018-10-10 10:53+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\rikhsantools\templates\imgtopdf.html:18
+msgid ""
+"This free service allows you to convert image files to PDF. You can also "
+"combine it directly. You can upload images up to 20."
+msgstr ""
+"この無料サービスにより、画像ファイルをPDFに変換することができます。 また、そ"
+"れを直接組み合わせることもできます。 最大20の画像をアップロードできます。"
+
+#: .\rikhsantools\templates\imgtopdf.html:21
+msgid ""
+"Upload files by clicking the upload button. You can also upload by dropping "
+"files into the upload area. Wait a few moments until the upload process is "
+"complete."
+msgstr "アップロードボタンをクリックしてファイルをアップロードします。 アップロード領域にファイルをドロップすることでアップロードすることもできます。 アップロードプロセスが完了するまでしばらくお待ちください。"
+
+#: .\rikhsantools\templates\imgtopdf.html:22
+msgid ""
+"Download files that have been converted to pdf. You can combine all files "
+"using the combine button."
+msgstr "pdfに変換されたファイルをダウンロードしてください。 結合ボタンを使用してすべてのファイルを結合することができます。"
 
 #: .\rikhsantools\templates\imgtopdf.html:26
 msgid "Upload Files / Drop File Here"

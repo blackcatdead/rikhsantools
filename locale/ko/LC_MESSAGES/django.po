@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 09:46+0700\n"
+"POT-Creation-Date: 2018-10-10 10:53+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\rikhsantools\templates\imgtopdf.html:18
+msgid ""
+"This free service allows you to convert image files to PDF. You can also "
+"combine it directly. You can upload images up to 20."
+msgstr ""
+"이 무료 서비스를 사용하면 이미지 파일을 PDF로 변환 할 수 있습니다. 직접 결합 "
+"할 수도 있습니다. 최대 20 개의 이미지를 업로드 할 수 있습니다."
+
+#: .\rikhsantools\templates\imgtopdf.html:21
+msgid ""
+"Upload files by clicking the upload button. You can also upload by dropping "
+"files into the upload area. Wait a few moments until the upload process is "
+"complete."
+msgstr "업로드 버튼을 클릭하여 파일을 업로드하십시오. 파일을 업로드 영역에 놓아 업로드 할 수도 있습니다. 업로드 프로세스가 완료 될 때까지 잠시 기다리십시오."
+
+#: .\rikhsantools\templates\imgtopdf.html:22
+msgid ""
+"Download files that have been converted to pdf. You can combine all files "
+"using the combine button."
+msgstr "pdf로 변환 된 파일을 다운로드하십시오. 결합 버튼을 사용하여 모든 파일을 결합 할 수 있습니다."
 
 #: .\rikhsantools\templates\imgtopdf.html:26
 msgid "Upload Files / Drop File Here"

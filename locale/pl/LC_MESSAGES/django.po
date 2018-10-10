@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 09:46+0700\n"
+"POT-Creation-Date: 2018-10-10 10:53+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,27 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: .\rikhsantools\templates\imgtopdf.html:18
+msgid ""
+"This free service allows you to convert image files to PDF. You can also "
+"combine it directly. You can upload images up to 20."
+msgstr ""
+"Ta bezpłatna usługa umożliwia konwertowanie plików graficznych do formatu "
+"PDF. Możesz także łączyć go bezpośrednio. Możesz przesłać zdjęcia do 20."
+
+#: .\rikhsantools\templates\imgtopdf.html:21
+msgid ""
+"Upload files by clicking the upload button. You can also upload by dropping "
+"files into the upload area. Wait a few moments until the upload process is "
+"complete."
+msgstr "Przesyłaj pliki, klikając przycisk przesyłania. Możesz także przesłać pliki, upuszczając je do obszaru przesyłania. Poczekaj chwilę, aż proces przesyłania zostanie zakończony."
+
+#: .\rikhsantools\templates\imgtopdf.html:22
+msgid ""
+"Download files that have been converted to pdf. You can combine all files "
+"using the combine button."
+msgstr "Pobierz pliki, które zostały przekonwertowane do formatu pdf. Możesz łączyć wszystkie pliki za pomocą przycisku łączenia."
 
 #: .\rikhsantools\templates\imgtopdf.html:26
 msgid "Upload Files / Drop File Here"

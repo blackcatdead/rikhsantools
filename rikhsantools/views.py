@@ -115,7 +115,7 @@ def uploadFiles(request):
 		f.save()
 		data = {'is_valid': True, 'name': f.filename, 'url': f.photo.url, 'id': f.id_photo}
 	else:
-	    data = {'is_valid': False}
+	    data = {'is_valid': False, 'name': str(request.FILES['photo']), 'url': '', 'id': ''}
 	return JsonResponse(data)
 
 def singleimgtopdf(request):

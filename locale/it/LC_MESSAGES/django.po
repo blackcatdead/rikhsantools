@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-10 09:46+0700\n"
+"POT-Creation-Date: 2018-10-10 10:53+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: .\rikhsantools\templates\imgtopdf.html:18
+msgid ""
+"This free service allows you to convert image files to PDF. You can also "
+"combine it directly. You can upload images up to 20."
+msgstr ""
+"Questo servizio gratuito ti consente di convertire i file di immagine in "
+"PDF. Puoi anche combinarlo direttamente. Puoi caricare immagini fino a 20."
+
+#: .\rikhsantools\templates\imgtopdf.html:21
+msgid ""
+"Upload files by clicking the upload button. You can also upload by dropping "
+"files into the upload area. Wait a few moments until the upload process is "
+"complete."
+msgstr "Carica i file facendo clic sul pulsante di caricamento. Puoi anche caricare facendo cadere i file nell'area di caricamento. Attendi qualche istante fino al completamento del processo di caricamento."
+
+#: .\rikhsantools\templates\imgtopdf.html:22
+msgid ""
+"Download files that have been converted to pdf. You can combine all files "
+"using the combine button."
+msgstr "Scarica i file che sono stati convertiti in pdf. Puoi combinare tutti i file usando il pulsante Combina."
+
 #: .\rikhsantools\templates\imgtopdf.html:26
 msgid "Upload Files / Drop File Here"
-msgstr ""
+msgstr "Carica file / Trascina qui il file"
 
 #: .\rikhsantools\templates\imgtopdf.html:60
 msgid "Combine"
-msgstr ""
+msgstr "Combinare"

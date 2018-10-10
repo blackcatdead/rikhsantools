@@ -11,15 +11,15 @@
 {% block content %}
 <div class="box box-default">
 	<div class="box-header with-border">
-		<h3 class="box-title">Image to PDF</h3>
+		<h3 class="box-title">Convert Image to PDF</h3>
 	</div>
 	<div class="box-body table-responsive">
 		<p>
-			Layanan online gratis ini memungkinkan Anda untuk mengkonversi gambar ke berkas PDF yang terpisah atau menggabungkannya dalam satu berkas PDF. Yang harus Anda lakukan adalah mengunggah sampai dengan <code>20 gambar</code>, menunggu sebentar dan unduh hasilnya.
+			{% trans "This free service allows you to convert image files to PDF. You can also combine it directly. You can upload images up to 20." %}
 		</p>
 		<ol>
-		    <li>Klik <b>UNGGAH FILE</b> dan pilih berkas untuk dikonversi atau hanya dengan geser dan jatuhkan ke area unggah. Tunggu sampai proses selesai.</li>
-		    <li>Anda dapat mengunduh berkas yang telah dikonversi satu per satu atau cukup klik tombol <b>TERGABUNG</b> untuk mengunduh semua berkas yang telah digabungkan.</li>
+		    <li>{% trans "Upload files by clicking the upload button. You can also upload by dropping files into the upload area. Wait a few moments until the upload process is complete." %}</li>
+		    <li>{% trans "Download files that have been converted to pdf. You can combine all files using the combine button." %}</li>
 		</ol>
 
 		<button type="button" class="btn btn-primary js-upload-photos btn-block btn-flat">
@@ -43,11 +43,11 @@
 				       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 		<table id="gallery" class="table table-hover">
             <thead>
-			    <!-- <tr>
-			    	<th class="hidden">#</th>
+			    <tr>
+			    	<!-- <th class="hidden">#</th>
 			      	<th>File</th>
-			      	<th>Action</th>
-			    </tr> -->
+			      	<th>Action</th> -->
+			    </tr>
 			  </thead>
 			  <tbody>
 
@@ -120,6 +120,12 @@
 				  if (data.result.is_valid) {
 				    $("#gallery tbody").prepend(
 				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'"><span class="fa fa-download"></span></a></td></tr>'
+				    )
+				  }
+				  else
+				  {
+				  	$("#gallery tbody").prepend(
+				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td>failed</td></tr>'
 				    )
 				  }
 				}
