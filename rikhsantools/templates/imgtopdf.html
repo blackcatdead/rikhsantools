@@ -53,15 +53,16 @@
 
 			  </tbody>
         </table>
+        <button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"></span> {% trans "Combine" %}</button>
 	</div>
-	<div id="inifooter" class="box-footer">
+	<!-- <div id="inifooter" class="box-footer">
 		<div class="row">
 			<div class="col-md-12">
 				<button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"></span> {% trans "Combine" %}</button>
 			</div>
 		</div>
 		
-	</div>
+	</div> -->
 
 	<!-- /.box-body -->
 </div>
@@ -91,7 +92,7 @@
 	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script> -->
 	<script type="text/javascript">
 		$("#modal-progress2").hide();
-		$("#inifooter").hide()
+		$("#combine").hide()
 		$(function() {
 			$(".js-upload-photos").click(function () {
 				$("#fileupload").click();
@@ -121,7 +122,7 @@
 				    $("#gallery tbody").prepend(
 				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a><a type="button" class="btn btn-xs btn-default pull-right" href="{% url "singleimgtopdf" %}?id='+data.result.id+'" target="_blank"><span class="fa fa-download"></span></a></td></tr>'
 				    )
-				    $("#inifooter").show()
+				    $("#combine").show()
 				    
 				  }
 				  else
