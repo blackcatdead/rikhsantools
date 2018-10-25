@@ -20,6 +20,6 @@ from rikhsantools import views as v
 urlpatterns = [
     path('imgtopdf/', v.tool_imgtopdf, name='imgtopdf'),
     path('pdfscombine/', v.tool_pdfscombine, name='pdfscombine'),
-    # path('', views.test, name='test'),
+    path('', v.home, name='home'),
 
 ]

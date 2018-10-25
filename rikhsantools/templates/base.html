@@ -8,8 +8,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title> {% block page %}{% endblock %} | tools.rikhsan.com</title>
-  <link rel="shortcut icon" type="image/png" href=""/>
+  <title> {% block page %}{% endblock %} | Rikhsan's Tools</title>
+  <link rel="shortcut icon" type="image/png" href="{% static ''%}img/rikhsan.png"/>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -39,7 +39,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand"><b>PenTools</b></a>
+          <a href="/" class="navbar-brand"><b>Rikhsan's Tools</b></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
@@ -54,9 +54,10 @@
             <li class="dropdown tasks-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{{ LANGUAGE_CODE }} <span class="caret"></span></a>
               <ul class="dropdown-menu">
+                
                 {% for lang_code, lang_name in languages %}
                     {% language lang_code %}
-                      <li class="{% if LANGUAGE_CODE == lang_code %}active{% endif %}"><a id="{{ lang_code }}" href="{% url 'imgtopdf' %}">{{ lang_name }} ({{ lang_code }})</a></li>
+                      <li class="{% if LANGUAGE_CODE == lang_code %}active{% endif %}"><a id="{{ lang_code }}" href="{% block lang %}{% endblock %}">{{ lang_name }} ({{ lang_code }})</a></li>
                     {% endlanguage %}
                 {% endfor %}
                 
@@ -85,7 +86,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <center>
-      <strong>Copyright © 2018 <a href="#">rikhsan</a>.</strong> PenTools
+      <strong>Copyright © 2018 <a href="http://rikhsan.com">rikhsan</a>.</strong> Rikhsan's Tools
     </center>
     
   </footer>

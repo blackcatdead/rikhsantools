@@ -14,6 +14,14 @@ import os
 from django.core.files import File
 from django.core.exceptions import ValidationError
 
+def home (request):
+	template = loader.get_template('home.html')
+	context = {
+		'page': 'Home',
+	}
+	return HttpResponse(template.render(context, request))
+
+
 def tool_imgtopdf(request):
 	template = loader.get_template('imgtopdf.html')
 	context = {
