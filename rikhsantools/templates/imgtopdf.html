@@ -80,7 +80,6 @@
     </div>
   </div>
 </div>
-
 <!-- /.box -->
 {% endblock %}
 
@@ -119,13 +118,13 @@
 				done: function (e, data) {
 				  if (data.result.is_valid) {
 				    $("#gallery tbody").prepend(
-				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'"><span class="fa fa-download"></span></a></td></tr>'
+				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'" target="_blank"><span class="fa fa-download"></span></a> <a class="btn btn-xs btn-default btnremove"><span class="fa fa-trash"></span></a></td></tr>'
 				    )
 				  }
 				  else
 				  {
 				  	$("#gallery tbody").prepend(
-				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td>failed</td></tr>'
+				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td><a class="btn btn-xs btn-default btnremove"><span class="fa fa-trash"></span></a> failed</td></tr>'
 				    )
 				  }
 				}
@@ -155,6 +154,11 @@
 				});
 			    x.appendTo($(document.body)) //it has to be added somewhere into the <body>
 			    x.submit();
+			});
+
+			$("#gallery").on('click', '.btnremove', function() {
+			    // alert($(this).parent())
+			    $(this).parents('tr').remove();
 			});
 		});
 	</script>

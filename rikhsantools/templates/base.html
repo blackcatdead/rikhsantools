@@ -56,7 +56,7 @@
               <ul class="dropdown-menu">
                 {% for lang_code, lang_name in languages %}
                     {% language lang_code %}
-                      <li><a id="{{ lang_code }}" href="{% url 'imgtopdf' %}">{{ lang_name }} ({{ lang_code }})</a></li>
+                      <li class="{% if LANGUAGE_CODE == lang_code %}active{% endif %}"><a id="{{ lang_code }}" href="{% url 'imgtopdf' %}">{{ lang_name }} ({{ lang_code }})</a></li>
                     {% endlanguage %}
                 {% endfor %}
                 
