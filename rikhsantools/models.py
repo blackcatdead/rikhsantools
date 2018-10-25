@@ -11,9 +11,15 @@ from datetime import datetime, timedelta
 #     id_visitor= models.AutoField(primary_key=True)
 #     visited_at = models.DateTimeField(auto_now_add=True)
 
-class Photo(models.Model):
-    id_photo= models.AutoField(primary_key=True)
-    photo = models.ImageField(upload_to='photos/')
+class Imagetopdf(models.Model):
+    id_imagetopdf= models.AutoField(primary_key=True)
+    image = models.ImageField(upload_to='imagetopdf/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    filename = models.CharField(max_length=255, blank=True)
+
+class Pdfscombine(models.Model):
+    id_pdfscombine= models.AutoField(primary_key=True)
+    pdf = models.FileField(upload_to='pdfcombine/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     filename = models.CharField(max_length=255, blank=True)
 

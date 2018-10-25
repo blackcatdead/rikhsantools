@@ -25,9 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('proc/upload/files', v.uploadFiles, name='uploadfiles'),
-    path('proc/mergepdf', v.mergepdf, name='mergepdf'),
     path('proc/singleimgtopdf', v.singleimgtopdf, name='singleimgtopdf'),
     path('proc/combinetopdf', v.combinetopdf, name='combinetopdf'),
+
+    path('proc/upload/pdfscombine', v.pdfscombine_upload, name='pdfscombine_upload'),
+    path('proc/pdfscombine/combine', v.pdfscombine_combine, name='pdfscombine_combine'),
 
 ]
 

@@ -11,7 +11,7 @@
 {% block content %}
 <div class="box box-default">
 	<div class="box-header with-border">
-		<h3 class="box-title">Convert Image to PDF</h3>
+		<h3 class="box-title">{{ page }}</h3>
 	</div>
 	<div class="box-body table-responsive">
 		<p>
@@ -37,7 +37,7 @@
 			</div>
 			
 		</div>
-		<input id="fileupload" type="file" name="photo" multiple
+		<input id="fileupload" type="file" name="image" multiple
 				       style="display: none;"
 				       data-url="{% url 'uploadfiles' %}"
 				       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
@@ -54,7 +54,7 @@
 			  </tbody>
         </table>
 	</div>
-	<div class="box-footer">
+	<div id="inifooter" class="box-footer">
 		<div class="row">
 			<div class="col-md-12">
 				<button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"></span> {% trans "Combine" %}</button>
@@ -91,6 +91,7 @@
 	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script> -->
 	<script type="text/javascript">
 		$("#modal-progress2").hide();
+		$("#inifooter").hide()
 		$(function() {
 			$(".js-upload-photos").click(function () {
 				$("#fileupload").click();
@@ -118,13 +119,15 @@
 				done: function (e, data) {
 				  if (data.result.is_valid) {
 				    $("#gallery tbody").prepend(
-				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a type="button" class="btn btn-xs btn-default" href="{% url "singleimgtopdf" %}?id='+data.result.id+'" target="_blank"><span class="fa fa-download"></span></a> <a class="btn btn-xs btn-default btnremove"><span class="fa fa-trash"></span></a></td></tr>'
+				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a><a type="button" class="btn btn-xs btn-default pull-right" href="{% url "singleimgtopdf" %}?id='+data.result.id+'" target="_blank"><span class="fa fa-download"></span></a></td></tr>'
 				    )
+				    $("#inifooter").show()
+				    
 				  }
 				  else
 				  {
 				  	$("#gallery tbody").prepend(
-				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td><a class="btn btn-xs btn-default btnremove"><span class="fa fa-trash"></span></a> failed</td></tr>'
+				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td>failed <a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
 				    )
 				  }
 				}
@@ -135,16 +138,6 @@
 
 		$(document).ready(function(){
 			
-		  //   $('#combine').click(function () {
-		  //   	var a = [];
-				// $(".imgs").each(function( index ) {
-				//   console.log($(this).text());
-				//   a.push($(this).text());
-				// });
-		  //       $.post("{% url 'combinetopdf' %}", {
-		  //       	images: a
-		  //       } );
-		  //   }); // missing end of statement.
 
 		    $("#combine").click(function () {
 			    x = $('<form action="{% url "combinetopdf" %}" method="POST"/>')

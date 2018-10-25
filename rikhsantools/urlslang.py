@@ -18,7 +18,8 @@ from django.urls import path
 from rikhsantools import views as v
 
 urlpatterns = [
-    path('imgtopdf/', v.index, name='imgtopdf'),
+    path('imgtopdf/', v.tool_imgtopdf, name='imgtopdf'),
+    path('pdfscombine/', v.tool_pdfscombine, name='pdfscombine'),
     # path('', views.test, name='test'),
 
 ]
