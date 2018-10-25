@@ -54,7 +54,7 @@ def singleimgtopdf(request):
 @csrf_exempt
 def combinetopdf(request):
 	print(request.POST)
-	photos = Imagetopdf.objects.filter(id_imagetopdf__in=request.POST.getlist('ids[]'))
+	photos = Imagetopdf.objects.filter(id_imagetopdf__in=request.POST.getlist('ids[]')).extra(select={'manual': 'FIELD(id_imagetopdf,%s)' % ','.join(map(str, request.POST.getlist('ids[]')))},order_by=['manual'])
 	imglist=[]
 	for p in photos:
 		imglist.append(p.image.path)
@@ -91,7 +91,7 @@ from PyPDF2 import PdfFileMerger, PdfFileReader
 @csrf_exempt
 def pdfscombine_combine(request):
 	print(request.POST)
-	pdfs = Pdfscombine.objects.filter(id_pdfscombine__in=request.POST.getlist('ids[]'))
+	pdfs = Pdfscombine.objects.filter(id_pdfscombine__in=request.POST.getlist('ids[]')).extra(select={'manual': 'FIELD(id_pdfscombine,%s)' % ','.join(map(str, request.POST.getlist('ids[]')))},order_by=['manual'])
 	merger = PdfFileMerger()
 	for p in pdfs:
 		merger.append(open(p.pdf.path, 'rb'))

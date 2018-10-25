@@ -46,16 +46,9 @@
 				       data-url="{% url 'pdfscombine_upload' %}"
 				       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 		<table id="gallery" class="table table-hover">
-            <thead>
-			    <tr>
-			    	<!-- <th class="hidden">#</th>
-			      	<th>File</th>
-			      	<th>Action</th> -->
-			    </tr>
-			  </thead>
-			  <tbody>
+			<tbody id="sortable">
 
-			  </tbody>
+			</tbody>
         </table>
         <button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"></span> {% trans "Combine" %}</button>
 	</div>
@@ -93,10 +86,13 @@
 	<script src="{% static ''%}js/jquery.ui.widget.js"></script>
 	<script src="{% static ''%}js/jquery.iframe-transport.js"></script>
 	<script src="{% static ''%}js/jquery.fileupload.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script> -->
 	<script type="text/javascript">
 		$("#modal-progress2").hide();
 		$("#combine").hide()
+		$("#sortable").sortable();
+    	$("#sortable").disableSelection()
 		$(function() {
 			$(".js-upload-photos").click(function () {
 				$("#fileupload").click();
@@ -123,16 +119,17 @@
 				},
 				done: function (e, data) {
 				  if (data.result.is_valid) {
-				    $("#gallery tbody").prepend(
-				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
-				    )
+				    $appe='<tr class="ui-state-default"><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
 					$("#combine").show()
+				    $("#sortable").append($appe);
+    				$("#sortable").sortable('refresh');
 				  }
 				  else
 				  {
-				  	$("#gallery tbody").prepend(
-				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td>failed<a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
-				    )
+				    $appe = '<tr class="danger ui-state-default"><td class="hidden"></td><td>' + data.result.name + '</td><td>failed<a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
+				    $("#sortable").append($appe);
+    				$("#sortable").sortable("refresh");
+
 				  }
 				}
 
