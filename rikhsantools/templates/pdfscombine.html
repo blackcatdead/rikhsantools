@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block page %}
+{{page}}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="box box-default">
+	<div class="box-header with-border">
+		<h3 class="box-title">{{ page }}</h3>
+	</div>
+	<div class="box-body table-responsive">
+<!-- 		<p>
+			{% trans "This free service allows you to convert image files to PDF. You can also combine it directly. You can upload images up to 20." %}
+		</p>
+		<ol>
+		    <li>{% trans "Upload files by clicking the upload button. You can also upload by dropping files into the upload area. Wait a few moments until the upload process is complete." %}</li>
+		    <li>{% trans "Download files that have been converted to pdf. You can combine all files using the combine button." %}</li>
+		</ol> -->
+
+		<button type="button" class="btn btn-primary js-upload-photos btn-block btn-flat">
+		  <span class="glyphicon glyphicon-cloud-upload"></span> {% trans "Upload or Drop PDF Here" %}
+		</button>
+
+		<!-- <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+		  <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+		  <h3>Drop File Here to Upload</h3>
+		</div> -->
+
+		<div id="modal-progress2" class="progress progress-sm active">
+			<div class="progress-bar progress-bar-primary progress-bar-striped" style="width: 0%">
+			  <span class="sr-only">20% Complete</span>
+			</div>
+			
+		</div>
+		<input id="fileupload" type="file" name="pdf" multiple
+				       style="display: none;"
+				       data-url="{% url 'pdfscombine_upload' %}"
+				       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+		<table id="gallery" class="table table-hover">
+            <thead>
+			    <tr>
+			    	<!-- <th class="hidden">#</th>
+			      	<th>File</th>
+			      	<th>Action</th> -->
+			    </tr>
+			  </thead>
+			  <tbody>
+
+			  </tbody>
+        </table>
+	</div>
+	<div id="inifooter" class="box-footer">
+		<div class="row">
+			<div class="col-md-12">
+				<button id="combine" class="btn btn-primary btn-block btn-flat"><span class="fa fa-clone"></span> {% trans "Combine" %}</button>
+			</div>
+		</div>
+		
+	</div>
+
+	<!-- /.box-body -->
+</div>
+
+<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Uploading...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.box -->
+{% endblock %}
+
+
+{% block foot %}
+	<script src="{% static ''%}js/jquery.ui.widget.js"></script>
+	<script src="{% static ''%}js/jquery.iframe-transport.js"></script>
+	<script src="{% static ''%}js/jquery.fileupload.js"></script>
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script> -->
+	<script type="text/javascript">
+		$("#modal-progress2").hide();
+		$("#inifooter").hide()
+		$(function() {
+			$(".js-upload-photos").click(function () {
+				$("#fileupload").click();
+			});
+
+			$("#fileupload").fileupload({
+				dataType: 'json',
+				sequentialUploads: true,  /* 1. SEND THE FILES ONE BY ONE */
+				start: function (e) {  /* 2. WHEN THE UPLOADING PROCESS STARTS, SHOW THE MODAL */
+				  // $("#modal-progress").modal("show");
+				  $("#modal-progress2").show();
+				},
+				stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+				  // $("#modal-progress").modal("hide");
+				  $(".progress-bar span").text("0");
+				  $("#modal-progress2").hide();
+
+				},
+				progressall: function (e, data) {  /* 4. UPDATE THE PROGRESS BAR */
+				  var progress = parseInt(data.loaded / data.total * 100, 10);
+				  var strProgress = progress + "%";
+				  $(".progress-bar").css({"width": strProgress});
+				  $(".progress-bar span").text(strProgress);
+				},
+				done: function (e, data) {
+				  if (data.result.is_valid) {
+				    $("#gallery tbody").prepend(
+				      '<tr><td class="imgs hidden">'+data.result.id+'</td><td>' + data.result.name + '.pdf</td><td><a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
+				    )
+					$("#inifooter").show()
+				  }
+				  else
+				  {
+				  	$("#gallery tbody").prepend(
+				      '<tr class="danger"><td class="hidden"></td><td>' + data.result.name + '</td><td>failed<a class="btn btn-xs btn-default btnremove pull-right"><span class="fa fa-trash"></span></a></td></tr>'
+				    )
+				  }
+				}
+
+			});
+
+		});
+
+		$(document).ready(function(){
+			
+		  //   $('#combine').click(function () {
+		  //   	var a = [];
+				// $(".imgs").each(function( index ) {
+				//   console.log($(this).text());
+				//   a.push($(this).text());
+				// });
+		  //       $.post("{% url 'combinetopdf' %}", {
+		  //       	images: a
+		  //       } );
+		  //   }); // missing end of statement.
+
+		    $("#combine").click(function () {
+			    x = $('<form action="{% url "pdfscombine_combine" %}" method="POST"/>')
+
+			    $(".imgs").each(function( index ) {
+				  x.append($('<input type="hidden" name="ids[]" value="' + $(this).text() + '">'))
+				});
+			    x.appendTo($(document.body)) //it has to be added somewhere into the <body>
+			    x.submit();
+			});
+
+			$("#gallery").on('click', '.btnremove', function() {
+			    // alert($(this).parent())
+			    $(this).parents('tr').remove();
+			});
+		});
+	</script>
+{% endblock %}
